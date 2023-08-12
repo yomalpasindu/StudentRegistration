@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentRegistration.DataAccess;
 
@@ -11,9 +12,11 @@ using StudentRegistration.DataAccess;
 namespace StudentRegistration.DataAccess.Migrations
 {
     [DbContext(typeof(StudentRegistrationDBContext))]
-    partial class StudentRegistrationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230812150228_migmanytomany")]
+    partial class migmanytomany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,18 +56,6 @@ namespace StudentRegistration.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Courses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "IT"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Management"
-                        });
                 });
 
             modelBuilder.Entity("StudentRegistration.Modles.Students", b =>
@@ -121,34 +112,6 @@ namespace StudentRegistration.DataAccess.Migrations
                     b.HasIndex("CourseId");
 
                     b.ToTable("Students");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address1 = "no 12/1",
-                            Address2 = "gattuwana",
-                            Address3 = "kurunegala",
-                            ContactNo = "0767788909",
-                            CourseId = 1,
-                            DOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "top.devanz@gmail.com",
-                            NIC = "992021852V",
-                            Name = "Top"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address1 = "no 12/1",
-                            Address2 = "gattuwana",
-                            Address3 = "kurunegala",
-                            ContactNo = "0767788909",
-                            CourseId = 2,
-                            DOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "bottom.devanz@gmail.com",
-                            NIC = "992021852V",
-                            Name = "Bottom"
-                        });
                 });
 
             modelBuilder.Entity("StudentRegistration.Modles.Teachers", b =>
@@ -200,32 +163,6 @@ namespace StudentRegistration.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Teachers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address1 = "no 55/1",
-                            Address2 = "gattuwana",
-                            Address3 = "kurunegala",
-                            ContactNo = "0717992131",
-                            DOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "yomal.devanz@gmail.com",
-                            NIC = "942021852V",
-                            Name = "Yomal"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address1 = "no 42/1",
-                            Address2 = "gattuwana",
-                            Address3 = "kurunegala",
-                            ContactNo = "0767788909",
-                            DOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "ben.devanz@gmail.com",
-                            NIC = "992021852V",
-                            Name = "Ben"
-                        });
                 });
 
             modelBuilder.Entity("StudentsTeachers", b =>

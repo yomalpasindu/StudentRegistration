@@ -7,5 +7,6 @@ namespace StudentRegistration.Controllers
     [ApiController]
     public class StudentsController : ControllerBase
     {
+
     }
 }
