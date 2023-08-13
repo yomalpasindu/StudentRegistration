@@ -16,6 +16,9 @@ namespace StudentRegistration.Services
             CreateMap<Students, ViewStudentDto>()
                 .ForMember(dest => dest.Address,
                 opt => opt.MapFrom(src => $"{src.Address1},{src.Address2},{src.Address3}"));
+
+            CreateMap<CreateStudentDto,Students>();
+            CreateMap<UpdateStudentDto,Students>();
         }
     }
 }
