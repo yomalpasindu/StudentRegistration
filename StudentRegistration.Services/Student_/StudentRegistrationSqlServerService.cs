@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StudentRegistration.Services
+namespace StudentRegistration.Services.Student_
 {
     public class StudentRegistrationSqlServerService : IStudentRepository
     {
@@ -17,7 +17,7 @@ namespace StudentRegistration.Services
         }
         public Students GetStudent(int id)
         {
-            return context.Students.Where(s=>s.Id==id).FirstOrDefault();
+            return context.Students.Where(s => s.Id == id).FirstOrDefault();
         }
         public Students InsertStudents(Students student)
         {
@@ -25,10 +25,10 @@ namespace StudentRegistration.Services
             context.SaveChanges();
             return student;
         }
-        public Boolean DeleteStudent(int id)
+        public bool DeleteStudent(int id)
         {
-            var student=context.Students.Where(s => s.Id == id).FirstOrDefault();
-            if (student==null) 
+            var student = context.Students.Where(s => s.Id == id).FirstOrDefault();
+            if (student == null)
             {
                 return false;//"Student Id not found! ("+id+")";
             }
@@ -39,7 +39,7 @@ namespace StudentRegistration.Services
         public Students UpdateStudent(Students student)
         {
             context.Students.Update(student);
-            context.SaveChanges ();
+            context.SaveChanges();
             return GetStudent(student.Id);
         }
     }

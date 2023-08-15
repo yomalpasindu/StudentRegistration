@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StudentRegistration.Services
+namespace StudentRegistration.Services.Student_
 {
     public class CreateStudentDto
     {

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudentRegistration.Modles;
-using StudentRegistration.Services;
+using StudentRegistration.Services.Student_;
 
 namespace StudentRegistration.Controllers
 {
