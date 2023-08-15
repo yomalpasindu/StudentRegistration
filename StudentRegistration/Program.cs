@@ -1,6 +1,7 @@
 using AutoMapper;
 using StudentRegistration.Services.Course_;
 using StudentRegistration.Services.Student_;
+using StudentRegistration.Services.Teacher_;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IStudentRepository, StudentRegistrationSqlServerService>();
 builder.Services.AddTransient<ICoursesRepository, CoursesSqlServerService>();
+builder.Services.AddTransient<ITeacherRepository, TeacherSqlServerService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 var app = builder.Build();
 
