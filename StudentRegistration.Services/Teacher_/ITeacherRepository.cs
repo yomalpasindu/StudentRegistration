@@ -9,7 +9,10 @@ namespace StudentRegistration.Services.Teacher_
 {
     public interface ITeacherRepository
     {
+        public List<Teachers> GetAllTeachers();
         public Teachers GetTeacher(int id);
         public Teachers InsertTeacher(Teachers teacher);
+        public Teachers UpdateTeacher(Teachers teacher);
+        public Boolean DeleteTeacher(int id);
     }
 }

@@ -21,7 +21,7 @@ namespace StudentRegistration.Controllers
         public IActionResult GetCourses()
         {
             var courses= _coursesRepository.GetCourses();
-            var mappedCourses=_mapper.Map<ICollection<CourseDto>>(courses);
+            var mappedCourses=_mapper.Map<ICollection<ViewCourseDto>>(courses);
             if (mappedCourses != null)
             {
                 return Ok(mappedCourses);
@@ -33,7 +33,7 @@ namespace StudentRegistration.Controllers
         public ActionResult GetCourse(int id)
         {
             var course= _coursesRepository.GetCourse(id);
-            var mappedCourse=_mapper.Map<CourseDto>(course);
+            var mappedCourse=_mapper.Map<ViewCourseDto>(course);
             if(mappedCourse!=null)
             {
                 return Ok(mappedCourse);
@@ -41,11 +41,11 @@ namespace StudentRegistration.Controllers
             return NotFound();
         }
         [HttpPut]
-        public ActionResult UpdateCourse(CourseDto courses)
+        public ActionResult UpdateCourse(UpdateCourseDto courses)
         {
             var mappedCourse=_mapper.Map<Courses>(courses);
             var updateCourse=_coursesRepository.UpdateCourse(mappedCourse);
-            var mappedForView = _mapper.Map<CourseDto>(updateCourse);
+            var mappedForView = _mapper.Map<ViewCourseDto>(updateCourse);
             if (updateCourse != null)
             {
                 return Ok(mappedForView);
@@ -57,7 +57,7 @@ namespace StudentRegistration.Controllers
         {
             var mappedCourse = _mapper.Map<Courses>(course);
             var createCourse=_coursesRepository.InsertCourse(mappedCourse);
-            var mappedForView = _mapper.Map<CourseDto>(createCourse);
+            var mappedForView = _mapper.Map<ViewCourseDto>(createCourse);
             if(mappedForView != null)
             {
                 return Ok(mappedForView);

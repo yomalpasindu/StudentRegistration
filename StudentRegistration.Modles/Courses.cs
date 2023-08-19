@@ -16,5 +16,6 @@ namespace StudentRegistration.Modles
         public string Name { get; set; }
         public ICollection<Students> Students { get; set; }
         public ICollection<Teachers> Teachers { get; set; }
+        public ICollection<Lessions> Lessions { get; set; }
     }
 }

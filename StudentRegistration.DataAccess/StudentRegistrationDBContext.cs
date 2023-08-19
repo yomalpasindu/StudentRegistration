@@ -14,8 +14,8 @@ namespace StudentRegistration.DataAccess
         public DbSet<Students> Students { get; set; }
         public DbSet<Courses> Courses { get; set; }
         public DbSet<Teachers> Teachers { get; set; }
-        /*public DbSet<Activities> Activities { get; set; }
-        public DbSet<Lessions> Lessions { get; set; }*/
+        public DbSet<Activities> Activities { get; set; }
+        public DbSet<Lessions> Lessions { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var connectionString = "Server=localhost; Database=StudentsDB;Trusted_Connection=True;Encrypt=False;";
@@ -23,17 +23,28 @@ namespace StudentRegistration.DataAccess
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //Relationships
             modelBuilder.Entity<Courses>()
                 .HasMany(c => c.Students)
                 .WithOne(c => c.Course)
                 .HasForeignKey(c => c.CourseId)
                 .HasPrincipalKey(c => c.Id);
 
-
             modelBuilder.Entity<Teachers>()
                 .HasMany(t => t.Courses)
                 .WithMany(t => t.Teachers);
 
+            modelBuilder.Entity<Lessions>()
+                .HasOne(l => l.Courses)
+                .WithMany(l => l.Lessions)
+                .HasForeignKey(l => l.CourseId)
+                .HasPrincipalKey(l => l.Id);
+
+            modelBuilder.Entity<Activities>()
+                .HasOne(a=>a.Students)
+                .WithMany(a=>a.)
+
+            //Data Insertions
             modelBuilder.Entity<Courses>()
                 .HasData(new Courses[]
                 {
@@ -106,6 +117,35 @@ namespace StudentRegistration.DataAccess
                         Address2="gattuwana",
                         Address3="kurunegala",
                         CourseId=2
+                    }
+                });
+
+            modelBuilder.Entity<Lessions>()
+                .HasData(new Lessions[]
+                {
+                    new Lessions
+                    {
+                        Id = 1,
+                        Name="DBMS",
+                        CourseId = 1
+                    },
+                    new Lessions
+                    {
+                        Id = 2,
+                        Name="C#",
+                        CourseId = 1
+                    },
+                    new Lessions
+                    {
+                        Id = 3,
+                        Name="BA",
+                        CourseId = 2
+                    },
+                    new Lessions
+                    {
+                        Id = 4,
+                        Name="Stat",
+                        CourseId = 2
                     }
                 });
         }

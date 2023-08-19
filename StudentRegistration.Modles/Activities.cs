@@ -10,10 +10,12 @@ namespace StudentRegistration.Modles
     public class Activities
     {
         [Required]
-        public int ActivityId { get; set; }
+        public int Id { get; set; }
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }
         public Teachers Teacher { get; set; }
+        public int TeacherId { get; set; }
+        public ICollection<Students> Students { get; set; }
     }
 }

@@ -39,6 +39,6 @@ namespace StudentRegistration.Modles
         public int CourseId { get; set; }
         public Courses Course { get; set; }
         public ICollection<Teachers> Teachers { get; set; }
-
+        public ICollection<Activities> Activities { get; set; }
     }
 }

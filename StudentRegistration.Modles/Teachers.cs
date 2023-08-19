@@ -36,5 +36,6 @@ namespace StudentRegistration.Modles
         public string Address3 { get; set; }
         public ICollection<Courses> Courses { get; set; }
         public ICollection<Students> Students { get; set; }
+        public Activities Activities { get; set; }
     }
 }

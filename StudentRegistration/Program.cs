@@ -1,5 +1,7 @@
 using AutoMapper;
+using StudentRegistration.Services.Activities_;
 using StudentRegistration.Services.Course_;
+using StudentRegistration.Services.Lession_;
 using StudentRegistration.Services.Student_;
 using StudentRegistration.Services.Teacher_;
 
@@ -14,6 +16,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IStudentRepository, StudentRegistrationSqlServerService>();
 builder.Services.AddTransient<ICoursesRepository, CoursesSqlServerService>();
 builder.Services.AddTransient<ITeacherRepository, TeacherSqlServerService>();
+builder.Services.AddTransient<ILessionsRepository, LessionsSqlServerService>();
+builder.Services.AddTransient<IActivityRepository, ActivitySqlServerService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 var app = builder.Build();
 

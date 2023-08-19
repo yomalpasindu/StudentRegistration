@@ -19,6 +19,19 @@ namespace StudentRegistration.Controllers
             _teacherRepository = teacherRepository;
             _mapper = mapper;
         }
+        [HttpGet]
+        public ActionResult GetTeachers()
+        {
+            var teachers = _teacherRepository.GetAllTeachers();
+            if(teachers != null)
+            {
+                var mappedTeachers = _mapper.Map<ICollection<ViewTeacherDto>>(teachers);
+                return Ok(mappedTeachers);
+            }
+            else
+                return NoContent();
+            
+        }
         [HttpPost]
         public ActionResult InsertTeacher(CreateTeacherDto teacher)
         {
@@ -35,12 +48,36 @@ namespace StudentRegistration.Controllers
         public ActionResult GetTeacher(int id) 
         {
             var teacher=_teacherRepository.GetTeacher(id);
-            var mappedTeacher = _mapper.Map<ICollection<ViewTeacherDto>>(teacher);
-            if (mappedTeacher != null)
+
+
+            if (teacher != null)
             {
+                var mappedTeacher = _mapper.Map<ViewTeacherDto>(teacher);
                 return Ok(mappedTeacher);
             }
             return NotFound();
+        }
+        [HttpPut]
+        public ActionResult UpdateTeacher(UpdateTeacherDto teacher)
+        {
+            var mappedTeacher=_mapper.Map<Teachers>(teacher);
+            if (mappedTeacher != null)
+            {
+                var updateTeacher = _teacherRepository.UpdateTeacher(mappedTeacher);
+                var mappedForView=_mapper.Map<ViewTeacherDto>(updateTeacher); 
+                return Ok(mappedForView);
+            }
+            return BadRequest();
+        }
+        [HttpDelete]
+        public string DeleteTeacher(int id)
+        {
+            if (_teacherRepository.DeleteTeacher(id))
+            {
+                return ("Sucessfully Removed");
+            }
+
+            return ("Teacher not found!");
         }
     }
 }

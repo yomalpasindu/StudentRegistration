@@ -12,9 +12,10 @@ namespace StudentRegistration.Services.Course_
     {
         public CourseProfile()
         {
-            CreateMap<Courses, CourseDto>();
-            CreateMap<CourseDto, Courses>();
+            CreateMap<Courses, ViewCourseDto>();
+            CreateMap<ViewCourseDto, Courses>();
             CreateMap<CreateCourseDto,Courses>();
+            CreateMap<UpdateCourseDto,Courses>();
         }
     }
 }
