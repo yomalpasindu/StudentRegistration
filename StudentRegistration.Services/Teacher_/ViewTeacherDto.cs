@@ -1,4 +1,5 @@
-﻿using StudentRegistration.Services.Course_;
+﻿using StudentRegistration.Modles;
+using StudentRegistration.Services.Course_;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,6 @@ namespace StudentRegistration.Services.Teacher_
         public string Email { get; set; }
         public string NIC { get; set; }
         public string Address { get; set; }
-        public List<ViewCourseDto> Courses { get; set; }
+        public Courses Courses { get; set; }
     }
 }

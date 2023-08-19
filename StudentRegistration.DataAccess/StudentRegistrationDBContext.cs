@@ -41,8 +41,14 @@ namespace StudentRegistration.DataAccess
                 .HasPrincipalKey(l => l.Id);
 
             modelBuilder.Entity<Activities>()
-                .HasOne(a=>a.Students)
-                .WithMany(a=>a.)
+                .HasMany(a => a.Students)
+                .WithMany(a => a.Activities);
+
+            modelBuilder.Entity<Activities>()
+                .HasOne(a => a.Teacher)
+                .WithOne(a => a.Activity)
+                .HasForeignKey<Activities>(a=>a.TeacherId)
+                .IsRequired(false);
 
             //Data Insertions
             modelBuilder.Entity<Courses>()

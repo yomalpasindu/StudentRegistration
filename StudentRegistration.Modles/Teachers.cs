@@ -35,7 +35,7 @@ namespace StudentRegistration.Modles
         [MaxLength(50)]
         public string Address3 { get; set; }
         public ICollection<Courses> Courses { get; set; }
-        public ICollection<Students> Students { get; set; }
-        public Activities Activities { get; set; }
+        public int ActivityId { get; set; }
+        public Activities Activity { get; set; }
     }
 }

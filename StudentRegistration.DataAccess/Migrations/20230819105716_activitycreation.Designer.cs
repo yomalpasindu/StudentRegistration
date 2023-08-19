@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentRegistration.DataAccess;
 
@@ -11,9 +12,11 @@ using StudentRegistration.DataAccess;
 namespace StudentRegistration.DataAccess.Migrations
 {
     [DbContext(typeof(StudentRegistrationDBContext))]
-    partial class StudentRegistrationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230819105716_activitycreation")]
+    partial class activitycreation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -321,6 +324,21 @@ namespace StudentRegistration.DataAccess.Migrations
                         });
                 });
 
+            modelBuilder.Entity("StudentsTeachers", b =>
+                {
+                    b.Property<int>("StudentsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeachersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("StudentsId", "TeachersId");
+
+                    b.HasIndex("TeachersId");
+
+                    b.ToTable("StudentsTeachers");
+                });
+
             modelBuilder.Entity("ActivitiesStudents", b =>
                 {
                     b.HasOne("StudentRegistration.Modles.Activities", null)
@@ -380,6 +398,21 @@ namespace StudentRegistration.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("StudentsTeachers", b =>
+                {
+                    b.HasOne("StudentRegistration.Modles.Students", null)
+                        .WithMany()
+                        .HasForeignKey("StudentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StudentRegistration.Modles.Teachers", null)
+                        .WithMany()
+                        .HasForeignKey("TeachersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("StudentRegistration.Modles.Courses", b =>
