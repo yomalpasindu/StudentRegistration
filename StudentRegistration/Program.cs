@@ -4,12 +4,35 @@ using StudentRegistration.Services.Course_;
 using StudentRegistration.Services.Lession_;
 using StudentRegistration.Services.Student_;
 using StudentRegistration.Services.Teacher_;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.OAuth;
+using StudentRegistration.Modles;
+using System.Text;
+using StudentRegistration.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options=>
+{
+    options.Filters.Add<AuthorizationFilter>();
+});
+//Config the token
+builder.Services.AddAuthentication("JWTToken")
+    .AddJwtBearer("JWTToken", options =>
+    {
+        var keyBytes = Encoding.UTF8.GetBytes(AuthConstants.Secret);
+        var key = new SymmetricSecurityKey(keyBytes);
+
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidIssuer = AuthConstants.Issuer,
+            ValidAudience = AuthConstants.Audience,
+            IssuerSigningKey = key
+        };
+    });
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -29,6 +52,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
