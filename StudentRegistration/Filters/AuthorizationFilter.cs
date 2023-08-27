@@ -12,7 +12,7 @@ namespace StudentRegistration.Filters
 
             if (controllerName != "Authentication"&&!context.HttpContext.User.Identity.IsAuthenticated)
             {
-                context.Result = new UnauthorizedResult();
+                //context.Result = new UnauthorizedResult();
             }
         }
     }
