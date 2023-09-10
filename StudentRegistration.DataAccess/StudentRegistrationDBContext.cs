@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
+using Microsoft.Extensions.Configuration;
 using StudentRegistration.Modles;
 using System;
 using System.Collections.Generic;
@@ -11,14 +11,19 @@ namespace StudentRegistration.DataAccess
 {
     public class StudentRegistrationDBContext : DbContext
     {
+        private readonly IConfiguration _configuration;
         public DbSet<Students> Students { get; set; }
         public DbSet<Courses> Courses { get; set; }
         public DbSet<Teachers> Teachers { get; set; }
         public DbSet<Activities> Activities { get; set; }
         public DbSet<Lessions> Lessions { get; set; }
+        public StudentRegistrationDBContext(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connectionString = "Server=localhost; Database=StudentsDB;Trusted_Connection=True;Encrypt=False;";
+            var connectionString = _configuration.GetConnectionString("DefaultConnection");//Server=localhost; Database=StudentsDB;Trusted_Connection=True;Encrypt=False;";
             optionsBuilder.UseSqlServer(connectionString);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

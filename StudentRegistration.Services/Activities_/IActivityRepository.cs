@@ -10,5 +10,9 @@ namespace StudentRegistration.Services.Activities_
     public interface IActivityRepository
     {
         public List<Activities> GetAllActivities();
+        public Activities GetActivity(int id);
+        public Activities InsertActivity(Activities activity);
+        public Activities UpdateActivity(Activities activity);
+        public Boolean DeleteActivity(int id);
     }
 }

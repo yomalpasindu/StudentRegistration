@@ -10,7 +10,12 @@ namespace StudentRegistration.Services.Student_
 {
     public class StudentRegistrationSqlServerService : IStudentRepository
     {
-        StudentRegistrationDBContext context = new StudentRegistrationDBContext();
+        private readonly StudentRegistrationDBContext context;
+        public StudentRegistrationSqlServerService(StudentRegistrationDBContext _context)
+        {
+            context = _context;
+        }
+        //StudentRegistrationDBContext context = new StudentRegistrationDBContext();
         public List<Students> GetStudents()
         {
             return context.Students.ToList();

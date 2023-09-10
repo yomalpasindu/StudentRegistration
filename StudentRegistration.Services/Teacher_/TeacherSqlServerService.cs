@@ -10,7 +10,12 @@ namespace StudentRegistration.Services.Teacher_
 {
     public class TeacherSqlServerService: ITeacherRepository
     {
-        StudentRegistrationDBContext context=new StudentRegistrationDBContext();
+        private readonly StudentRegistrationDBContext context;
+        public TeacherSqlServerService(StudentRegistrationDBContext _context)
+        {
+            context = _context;
+        }
+        //StudentRegistrationDBContext context=new StudentRegistrationDBContext();
 
         public List<Teachers> GetAllTeachers()
         {

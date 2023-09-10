@@ -10,7 +10,12 @@ namespace StudentRegistration.Services.Lession_
 {
     public class LessionsSqlServerService: ILessionsRepository
     {
-        StudentRegistrationDBContext context= new StudentRegistrationDBContext();
+        private readonly StudentRegistrationDBContext context;
+        public LessionsSqlServerService(StudentRegistrationDBContext _context)
+        {
+            context = _context;
+        }
+        //StudentRegistrationDBContext context= new StudentRegistrationDBContext();
         public List<Lessions> GetAllLessions()
         {
             return context.Lessions.ToList();

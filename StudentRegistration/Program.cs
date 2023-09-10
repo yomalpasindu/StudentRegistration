@@ -9,8 +9,13 @@ using Microsoft.AspNetCore.Authentication.OAuth;
 using StudentRegistration.Modles;
 using System.Text;
 using StudentRegistration.Filters;
+using Microsoft.EntityFrameworkCore;
+using StudentRegistration.DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
+//Add Connectionstring
+builder.Services.AddDbContext<StudentRegistrationDBContext>(options=>
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 
@@ -32,6 +37,8 @@ builder.Services.AddAuthentication("JWTToken")
             IssuerSigningKey = key
         };
     });
+
+//builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

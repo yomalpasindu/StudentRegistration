@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StudentRegistration.Modles;
 using StudentRegistration.Services.Activities_;
+using System.Diagnostics;
 
 namespace StudentRegistration.Controllers
 {
@@ -24,10 +26,43 @@ namespace StudentRegistration.Controllers
             var activities=_activityRepository.GetAllActivities();
             if (activities!=null)
             {
-                var mappedActivities = _mapper.Map<ViewActivityDto>(activities);
+                var mappedActivities = _mapper.Map<ICollection<ViewActivityDto>>(activities);
                 return Ok(mappedActivities);
             }
             return NotFound();
+        }
+        [HttpGet("{id}")]
+        public ActionResult GetActivity(int id)
+        {
+            var activity = _activityRepository.GetActivity(id);
+            var mappedActivity = _mapper.Map<ViewActivityDto>(activity);
+            return Ok(mappedActivity);
+        }
+
+        [HttpPost]
+        public ActionResult InsertActivities(CreateActivityDto activity)
+        {
+            var mappedActivity = _mapper.Map<Activities>(activity);
+            var insertActivity=_activityRepository.InsertActivity(mappedActivity);
+            var mappedForView = _mapper.Map<ViewActivityDto>(insertActivity);
+            return Ok(mappedForView);
+        }
+
+        [HttpPut]
+        public ActionResult UpdateActivity(UpdateActivityDto activity)
+        {
+            var mappedActivity=_mapper.Map<Activities>(activity);
+            var updateActivity=_activityRepository.UpdateActivity(mappedActivity);
+            var mappedForView=_mapper.Map<UpdateActivityDto>(updateActivity);
+            return Ok(mappedForView);
+        }
+        [HttpDelete]
+        public string DeleteActivity(int id)
+        {
+            var removeActivity=_activityRepository.DeleteActivity(id);
+            if (removeActivity)
+                return ("Activity Succesfully Removed!");
+            return ("Activity not found!");
         }
     }
 }

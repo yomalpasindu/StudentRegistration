@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using StudentRegistration.Modles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,10 @@ namespace StudentRegistration.Services.Activities_
     {
         public ActivityProfile()
         {
-            
+            CreateMap<Activities,ViewActivityDto>();
+            CreateMap<CreateActivityDto, Activities>();
+            CreateMap<UpdateActivityDto,Activities>();
+            CreateMap<Activities,UpdateActivityDto>();
         }
     }
 }
