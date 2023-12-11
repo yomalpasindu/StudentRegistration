@@ -1,4 +1,5 @@
 ﻿using StudentRegistration.Modles;
+using StudentRegistration.Modles.Parameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace StudentRegistration.Services.Teacher_
 {
     public interface ITeacherRepository
     {
-        public List<Teachers> GetAllTeachers();
+        public List<Teachers> GetAllTeachers(QueryParameters queryParameters);
         public Teachers GetTeacher(int id);
         public Teachers InsertTeacher(Teachers teacher);
         public Teachers UpdateTeacher(Teachers teacher);

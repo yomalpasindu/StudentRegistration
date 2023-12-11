@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudentRegistration.Modles;
+using StudentRegistration.Modles.Parameters;
 using StudentRegistration.Services.Course_;
 
 namespace StudentRegistration.Controllers
@@ -18,9 +19,9 @@ namespace StudentRegistration.Controllers
             _mapper=mapper;
         }
         [HttpGet]
-        public IActionResult GetCourses()
+        public IActionResult GetCourses([FromQuery]QueryParameters queryParameters)
         {
-            var courses= _coursesRepository.GetCourses();
+            var courses= _coursesRepository.GetCourses(queryParameters);
             var mappedCourses=_mapper.Map<ICollection<ViewCourseDto>>(courses);
             if (mappedCourses != null)
             {

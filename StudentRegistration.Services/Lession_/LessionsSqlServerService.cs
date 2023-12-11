@@ -1,5 +1,7 @@
 ﻿using StudentRegistration.DataAccess;
+using StudentRegistration.DataAccess.Migrations;
 using StudentRegistration.Modles;
+using StudentRegistration.Modles.Parameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +18,10 @@ namespace StudentRegistration.Services.Lession_
             context = _context;
         }
         //StudentRegistrationDBContext context= new StudentRegistrationDBContext();
-        public List<Lessions> GetAllLessions()
+        public List<Lessions> GetAllLessions(QueryParameters queryParameters)
         {
-            return context.Lessions.ToList();
+            IQueryable<Lessions>lessions = context.Lessions.Skip(queryParameters.Size*(queryParameters.Page-1)).Take(queryParameters.Size);
+            return lessions.ToList();
         }
         public Lessions GetLession(int id)
         {

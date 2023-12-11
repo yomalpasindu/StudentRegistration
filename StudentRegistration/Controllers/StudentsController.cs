@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudentRegistration.Modles;
+using StudentRegistration.Modles.Parameters;
 using StudentRegistration.Services.Student_;
 
 namespace StudentRegistration.Controllers
@@ -22,9 +23,9 @@ namespace StudentRegistration.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetStudents()
+        public ActionResult GetStudents([FromQuery] QueryParameters queryParameters)
         {
-            var students=_studentRepository.GetStudents();
+            var students=_studentRepository.GetStudents(queryParameters);
             var mappedStudents = _mapper.Map<ICollection<ViewStudentDto>>(students);
             return Ok(mappedStudents);
         }

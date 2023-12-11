@@ -1,5 +1,6 @@
 ﻿using StudentRegistration.DataAccess;
 using StudentRegistration.Modles;
+using StudentRegistration.Modles.Parameters;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,10 +17,10 @@ namespace StudentRegistration.Services.Activities_
         {
             context = _context;
         }
-        //StudentRegistrationDBContext context=new StudentRegistrationDBContext();
-        public List<Activities> GetAllActivities()
+        public List<Activities> GetAllActivities(QueryParameters queryParameters)
         {
-            return context.Activities.ToList();
+            IQueryable<Activities> activities= context.Activities.Skip(queryParameters.Size*(queryParameters.Page-1)).Take(queryParameters.Size);
+            return activities.ToList();
         }
 
         public Activities GetActivity(int id)

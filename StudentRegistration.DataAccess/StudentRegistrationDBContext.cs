@@ -23,8 +23,8 @@ namespace StudentRegistration.DataAccess
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connectionString = _configuration.GetConnectionString("DefaultConnection");//Server=localhost; Database=StudentsDB;Trusted_Connection=True;Encrypt=False;";
-            optionsBuilder.UseSqlServer(connectionString);
+            //base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -78,12 +78,12 @@ namespace StudentRegistration.DataAccess
                         Id = 1,
                         Name="Yomal",
                         DOB=new DateTime().Date,
-                        ContactNo="0717992131",
-                        Email="yomal.devanz@gmail.com",
-                        NIC="942021852V",
+                        ContactNo="0712121222",
+                        Email="yomal.test@gmail.com",
+                        NIC="943433252V",
                         Address1="no 55/1",
-                        Address2="gattuwana",
-                        Address3="kurunegala"
+                        Address2="test lane",
+                        Address3="kandy"
                     },
                     new Teachers
                     {
@@ -91,11 +91,11 @@ namespace StudentRegistration.DataAccess
                         Name="Ben",
                         DOB=new DateTime().Date,
                         ContactNo="0767788909",
-                        Email="ben.devanz@gmail.com",
+                        Email="ben.test@gmail.com",
                         NIC="992021852V",
                         Address1="no 42/1",
-                        Address2="gattuwana",
-                        Address3="kurunegala"
+                        Address2="test lane",
+                        Address3="kandy"
                     }
                 });
 
@@ -108,11 +108,11 @@ namespace StudentRegistration.DataAccess
                         Name="Top",
                         DOB=new DateTime().Date,
                         ContactNo="0767788909",
-                        Email="top.devanz@gmail.com",
+                        Email="top.test@gmail.com",
                         NIC="992021852V",
-                        Address1="no 12/1",
-                        Address2="gattuwana",
-                        Address3="kurunegala",
+                        Address1="no 12/21",
+                        Address2="test lane",
+                        Address3="kandy",
                         CourseId=1
                     },
 
@@ -125,7 +125,7 @@ namespace StudentRegistration.DataAccess
                         Email="bottom.devanz@gmail.com",
                         NIC="992021852V",
                         Address1="no 12/1",
-                        Address2="gattuwana",
+                        Address2="test lane",
                         Address3="kurunegala",
                         CourseId=2
                     }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudentRegistration.Modles;
+using StudentRegistration.Modles.Parameters;
 using StudentRegistration.Services.Teacher_;
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
@@ -20,9 +21,9 @@ namespace StudentRegistration.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        public ActionResult GetTeachers()
+        public ActionResult GetTeachers([FromQuery]QueryParameters queryParameters)
         {
-            var teachers = _teacherRepository.GetAllTeachers();
+            var teachers = _teacherRepository.GetAllTeachers(queryParameters);
             if(teachers != null)
             {
                 var mappedTeachers = _mapper.Map<ICollection<ViewTeacherDto>>(teachers);

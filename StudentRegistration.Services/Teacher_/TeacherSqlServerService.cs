@@ -1,5 +1,6 @@
 ﻿using StudentRegistration.DataAccess;
 using StudentRegistration.Modles;
+using StudentRegistration.Modles.Parameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,10 @@ namespace StudentRegistration.Services.Teacher_
         }
         //StudentRegistrationDBContext context=new StudentRegistrationDBContext();
 
-        public List<Teachers> GetAllTeachers()
+        public List<Teachers> GetAllTeachers(QueryParameters queryParameters)
         {
-            return context.Teachers.ToList();
+            IQueryable<Teachers>teachers = context.Teachers.Skip(queryParameters.Size*(queryParameters.Page-1)).Take(queryParameters.Size);
+            return teachers.ToList();
         }
         public Teachers GetTeacher(int id)
         {

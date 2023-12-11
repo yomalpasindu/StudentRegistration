@@ -1,5 +1,6 @@
 ﻿using StudentRegistration.DataAccess;
 using StudentRegistration.Modles;
+using StudentRegistration.Modles.Parameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,10 @@ namespace StudentRegistration.Services.Student_
         {
             context = _context;
         }
-        //StudentRegistrationDBContext context = new StudentRegistrationDBContext();
-        public List<Students> GetStudents()
+        public List<Students> GetStudents(QueryParameters queryParameters)
         {
-            return context.Students.ToList();
+            IQueryable<Students>students=context.Students.Skip(queryParameters.Size*(queryParameters.Page-1)).Take(queryParameters.Size);
+            return students.ToList();
         }
         public Students GetStudent(int id)
         {

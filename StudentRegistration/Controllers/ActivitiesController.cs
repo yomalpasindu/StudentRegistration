@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudentRegistration.Modles;
+using StudentRegistration.Modles.Parameters;
 using StudentRegistration.Services.Activities_;
 using System.Diagnostics;
 
@@ -21,9 +22,9 @@ namespace StudentRegistration.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetActivities()
+        public ActionResult GetActivities([FromQuery]QueryParameters queryParameters)
         {            
-            var activities=_activityRepository.GetAllActivities();
+            var activities=_activityRepository.GetAllActivities(queryParameters);
             if (activities!=null)
             {
                 var mappedActivities = _mapper.Map<ICollection<ViewActivityDto>>(activities);

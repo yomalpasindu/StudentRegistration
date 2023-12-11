@@ -1,4 +1,5 @@
 ﻿using StudentRegistration.Modles;
+using StudentRegistration.Modles.Parameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace StudentRegistration.Services.Student_
 {
     public interface IStudentRepository
     {
-        public List<Students> GetStudents();
+        public List<Students> GetStudents(QueryParameters queryParameters);
         public Students InsertStudents(Students students);
         public Students GetStudent(int id);
         public bool DeleteStudent(int id);
