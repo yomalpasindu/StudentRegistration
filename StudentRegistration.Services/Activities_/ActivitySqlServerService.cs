@@ -1,4 +1,5 @@
-﻿using StudentRegistration.DataAccess;
+﻿using Microsoft.EntityFrameworkCore;
+using StudentRegistration.DataAccess;
 using StudentRegistration.Modles;
 using StudentRegistration.Modles.Parameters;
 using System;
@@ -20,6 +21,17 @@ namespace StudentRegistration.Services.Activities_
         public List<Activities> GetAllActivities(QueryParameters queryParameters)
         {
             IQueryable<Activities> activities= context.Activities.Skip(queryParameters.Size*(queryParameters.Page-1)).Take(queryParameters.Size);
+
+            if (!string.IsNullOrEmpty(queryParameters.Sort))
+            {
+                switch(queryParameters.Sort)
+                {
+                    case "asc":
+                        activities = activities.OrderBy(x => EF.Property<object>(x, queryParameters.Sort)); break;
+                    case "desc":
+                        activities=activities.OrderByDescending(x=>EF.Property<object>(x, queryParameters.Sort));break;
+                }
+            }
             return activities.ToList();
         }
 

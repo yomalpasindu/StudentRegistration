@@ -1,4 +1,5 @@
-﻿using StudentRegistration.DataAccess;
+﻿using Microsoft.EntityFrameworkCore;
+using StudentRegistration.DataAccess;
 using StudentRegistration.Modles;
 using StudentRegistration.Modles.Parameters;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace StudentRegistration.Services.Course_
 {
-    public class CoursesSqlServerService: ICoursesRepository
+    public class CoursesSqlServerService : ICoursesRepository
     {
         private readonly StudentRegistrationDBContext context;
         public CoursesSqlServerService(StudentRegistrationDBContext _context)
@@ -19,12 +20,22 @@ namespace StudentRegistration.Services.Course_
         //StudentRegistrationDBContext context = new StudentRegistrationDBContext();
         public List<Courses> GetCourses(QueryParameters queryParameters)
         {
-            IQueryable<Courses>courses=context.Courses.Skip(queryParameters.Size*(queryParameters.Page-1)).Take(queryParameters.Size);
+            IQueryable<Courses> courses = context.Courses.Skip(queryParameters.Size * (queryParameters.Page - 1)).Take(queryParameters.Size);
+            if (!string.IsNullOrEmpty(queryParameters.Sort))
+            {
+                switch (queryParameters.Sort)
+                {
+                    case "asc":
+                        courses = courses.OrderBy(c => EF.Property<object>(c,queryParameters.Sort)); break;
+                    case "desc":
+                        courses=courses.OrderByDescending(c => EF.Property<object>(c,queryParameters.Sort));break;
+                }
+            }
             return courses.ToList();
         }
         public Courses GetCourse(int id)
         {
-            return context.Courses.FirstOrDefault(c=>c.Id==id);
+            return context.Courses.FirstOrDefault(c => c.Id == id);
         }
         public Courses UpdateCourse(Courses course)
         {
@@ -41,7 +52,7 @@ namespace StudentRegistration.Services.Course_
         public Boolean DeleteCourse(int id)
         {
             var course = context.Courses.Where(c => c.Id == id).FirstOrDefault();
-            if(course != null)
+            if (course != null)
             {
                 var deletedRecord = context.Courses.Remove(course);
                 context.SaveChanges();

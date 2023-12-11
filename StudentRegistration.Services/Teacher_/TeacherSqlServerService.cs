@@ -1,4 +1,5 @@
-﻿using StudentRegistration.DataAccess;
+﻿using Microsoft.EntityFrameworkCore;
+using StudentRegistration.DataAccess;
 using StudentRegistration.Modles;
 using StudentRegistration.Modles.Parameters;
 using System;
@@ -21,6 +22,14 @@ namespace StudentRegistration.Services.Teacher_
         public List<Teachers> GetAllTeachers(QueryParameters queryParameters)
         {
             IQueryable<Teachers>teachers = context.Teachers.Skip(queryParameters.Size*(queryParameters.Page-1)).Take(queryParameters.Size);
+            if(!string.IsNullOrEmpty(queryParameters.Sort))
+            {
+                switch(queryParameters.Sort)
+                {
+                    case "asc":teachers=teachers.OrderBy(x=>EF.Property<object>(x,queryParameters.Sort)); break;
+                    case "desc":teachers=teachers.OrderByDescending(x=>EF.Property<object>(x,queryParameters.Sort)); break;
+                }
+            }
             return teachers.ToList();
         }
         public Teachers GetTeacher(int id)

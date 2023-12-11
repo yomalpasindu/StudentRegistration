@@ -1,4 +1,5 @@
-﻿using StudentRegistration.DataAccess;
+﻿using Microsoft.EntityFrameworkCore;
+using StudentRegistration.DataAccess;
 using StudentRegistration.DataAccess.Migrations;
 using StudentRegistration.Modles;
 using StudentRegistration.Modles.Parameters;
@@ -21,6 +22,14 @@ namespace StudentRegistration.Services.Lession_
         public List<Lessions> GetAllLessions(QueryParameters queryParameters)
         {
             IQueryable<Lessions>lessions = context.Lessions.Skip(queryParameters.Size*(queryParameters.Page-1)).Take(queryParameters.Size);
+            if(!string.IsNullOrEmpty(queryParameters.Sort))
+            {
+                switch (queryParameters.Sort) 
+                {
+                    case "asc": lessions = lessions.OrderBy(x => EF.Property<object>(x, queryParameters.Sort));break;
+                    case "desc": lessions=lessions.OrderByDescending(x=>EF.Property<object>(x, queryParameters.Sort)); break;
+                }
+            }
             return lessions.ToList();
         }
         public Lessions GetLession(int id)
